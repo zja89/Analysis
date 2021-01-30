@@ -1,6 +1,6 @@
 import json
 import matplotlib.pyplot as plt
-from settings import code_list
+from settings import code_list,code_name
 import download
 def cal(c,et):
     with open("%s.txt"%c,"r") as f:
@@ -46,20 +46,16 @@ def cal(c,et):
             # print(dates[i], current_price, floatCapitalOfAShares[i], floatSharesOfAShares[i])
 
 
-    print(records)
-
     price = [k for k in records.keys()]
     num = [records[k] for k in records.keys()]
-    print(price)
-    print(num)
-    print(min([k for k in records.keys() if records[k]]))
-    l1=plt.bar(price,num)
-    plt.title(c+" - "+et)
-    plt.show()
+    print(code_name[c],min([k for k in records.keys() if records[k]]))
+    # l1=plt.bar(price,num)
+    # plt.title(c+" - "+et)
+    # plt.show()
 
 from download import download
 
-et = '2021-01-27'
+et = '2021-01-28'
 download(et=et)
 for c in code_list:
     cal(c,et)
