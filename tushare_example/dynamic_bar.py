@@ -13,15 +13,15 @@ now = datetime.now().date()
 fd = now-timedelta(days=days)
 
 ax = None
-code = "000425"
-# code = '600703'
+# code = "000425"
+code = '600703'
 for d in [str(fd+timedelta(days=i)) for i in range(days+1)]:
     df = ts.get_tick_data(code,date=d,src='tt')
     a = df.groupby(["price"]).agg({"volume":"sum"})
     a = a.head(90)
     if not ax:
         ax = a.plot()
-    a.plot(ax=ax,figsize=(15,5),legend=d)
+    a.plot(ax=ax,figsize=(30,10),legend=d)
     plt.xticks(rotation=30)
     plt.title(d)
 plt.show()
