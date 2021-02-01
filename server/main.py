@@ -25,16 +25,15 @@ class MainHandler(tornado.web.RequestHandler):
         # self.write("Hello, world")
         from utils.baostock_util import get_history_volume
         code = "sh.600703"
-        prices,volumes = get_history_volume(code=code,sd="2021-01-01",ed="2021-01-29")
-        self.render("example.html",prices=prices,volumes=volumes)
+        self.render("example.html")
 
 
 class BSHistoryVolumes(tornado.web.RequestHandler):
     def get(self):
 
         code = "sh.600703"
-        prices,volumes = get_history_volume(code=code,sd="2021-01-01",ed="2021-01-29")
-        data = json.dumps(dict(prices=prices,volumes=volumes))
+        date_list,data = get_history_volume(code=code,sd="2021-01-01",ed="2021-01-29")
+        data = json.dumps(dict(date_list=date_list,data=data))
         self.write(data)
 
 
