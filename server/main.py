@@ -3,7 +3,10 @@ from tornado.web import StaticFileHandler
 import os
 import json
 from utils.baostock_util import get_history_volume
+from tornado.log import enable_pretty_logging
+enable_pretty_logging()
 
+root = os.path.dirname(__file__)
 
 
 class Application(tornado.web.Application):
@@ -11,7 +14,9 @@ class Application(tornado.web.Application):
         handlers = [
             (r"/", MainHandler),
             (r"/history_volumes",BSHistoryVolumes),
-            (r"/static(.*)", tornado.web.StaticFileHandler)
+            (r"/static(.*)", tornado.web.StaticFileHandler),
+            (r"/code_list", CodeListHandler),
+            (r"/test",TestHandler)
         ]
         settings = {
             "template_path": "static",
@@ -32,12 +37,31 @@ class BSHistoryVolumes(tornado.web.RequestHandler):
     def get(self):
 
         code = "sh.600703"
-        date_list,data = get_history_volume(code=code,sd="2021-01-01",ed="2021-01-29")
+        code = "sz.000488"
+        code = self.get_argument('code', None)
+        sd = self.get_argument('start_date', None)
+        ed = self.get_argument('end_date', None)
+        code = ".".join(code.split(".")[::-1]).lower()
+        print(code,sd,ed)
+        if not (code and sd and ed):
+            return
+        date_list,data = get_history_volume(code=code,sd=sd,ed=ed)
         data = json.dumps(dict(date_list=date_list,data=data))
         self.write(data)
 
 
-root = os.path.dirname(__file__)
+class CodeListHandler(tornado.web.RequestHandler):
+    def get(self):
+        from settings import code_name
+        self.write(code_name)
+
+
+
+
+class TestHandler(tornado.web.RequestHandler):
+    def get(self):
+        key = self.get_argument('key', None)
+        print(key)
 
 
 

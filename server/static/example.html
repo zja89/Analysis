@@ -5,19 +5,21 @@
     <title>第一个 ECharts 实例</title>
     <!-- 引入 echarts.js -->
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<!--    <script src="http://libs.baidu.com/jquery/2.0.0/jquery-ui.min.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.0.1/dist/echarts.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
     <script src="/static/utils.js"></script>
     <script >
         init();
-        get_history_volumes();
+        // get_history_volumes();
     </script>
 </head>
-<body>
+<body style="height:100%">
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div>
-        <input id="start_date" type="date">
-        <input id="end_date" type="date">
+    <div style="position: fixed;top: 0;height: 100%;width:100%;">
+        <input id="start_date" type="date" class="AttrDate">
+        <input id="end_date" type="date" class="AttrDate">
+        <select id="code" class="Attr"></select>
     </div>
     <div id="main" style="width:1000px;height:1000px;"></div>
     <script type="text/javascript">
