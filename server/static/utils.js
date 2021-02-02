@@ -21,9 +21,10 @@ function get_history_volumes() {
         option = {
             tooltip: {},
             visualMap: {
-                max: 5000000,
+                max: data.max,
                 inRange: {
-                    color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+                    color: ["#C0392B","#E74C3C","#9B59B6","#8E44AD","#2980B9","#3498DB","#1ABC9C","#16A085","#27AE60",
+                        "#2ECC71","#F1C40F","#F39C12","#E67E22","#D35400","#95A5A6","#7F8C8D"]
                 }
             },
             xAxis3D: {
@@ -53,7 +54,6 @@ function get_history_volumes() {
             },
             series: [{
                 type: 'bar3D',
-                stack: 'stack',
                 data: data.data.map(function (item) {
                     return {
                         value: [item[0], item[1], item[2]],

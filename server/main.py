@@ -2,7 +2,7 @@ import tornado.ioloop
 from tornado.web import StaticFileHandler
 import os
 import json
-from utils.baostock_util import get_history_volume
+from utils.baostock_util import get_history_volume,get_total_num
 from tornado.log import enable_pretty_logging
 enable_pretty_logging()
 
@@ -45,8 +45,9 @@ class BSHistoryVolumes(tornado.web.RequestHandler):
         print(code,sd,ed)
         if not (code and sd and ed):
             return
+        total_num = get_total_num(code)
         date_list,data = get_history_volume(code=code,sd=sd,ed=ed)
-        data = json.dumps(dict(date_list=date_list,data=data))
+        data = json.dumps(dict(date_list=date_list,data=data,max=int(total_num*0.01)))
         self.write(data)
 
 

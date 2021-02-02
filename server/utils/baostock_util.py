@@ -22,7 +22,18 @@ def get_history_volume(code,sd,ed):
     data = []
     for k,v in records.items():
         for _price,_volume in v.items():
-            # data.append([_price,date_list.index(k),_volume])
             data.append([_price, k, _volume])
-    print(date_list)
     return date_list,data
+
+
+def get_total_num(code):
+    rs = bs.query_history_k_data_plus(code,
+                                      "date,code,volume,turn",
+                                      start_date='2020-12-01', end_date='2020-12-01',
+                                      frequency="d", adjustflag="3")
+    data = rs.data
+    date,_code,volume,turn = data[0]
+    total_num = int(volume)/(float(turn)/100)
+    total_num = int(total_num)
+    return total_num
+
