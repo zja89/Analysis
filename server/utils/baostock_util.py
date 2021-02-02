@@ -1,4 +1,5 @@
 import baostock as bs
+from baostock.realtime.subscibe import subscribe_by_code
 lg = bs.login()
 
 def get_history_volume(code,sd,ed):
@@ -37,3 +38,10 @@ def get_total_num(code):
     total_num = int(total_num)
     return total_num
 
+def realtime_data(code):
+    rs = subscribe_by_code(code)
+    print(rs)
+
+
+if __name__ == "__main__":
+    realtime_data("sh.600703")
