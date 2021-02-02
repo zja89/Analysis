@@ -28,7 +28,9 @@ function get_history_volumes() {
                 }
             },
             xAxis3D: {
-                type: 'category',
+                type: 'value',
+                max:"dataMax",
+                min:"dataMin"
             },
             yAxis3D: {
                 type: 'category'
